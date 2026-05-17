@@ -11,5 +11,6 @@
       "src": "/api/(.*)",
       "dest": "backend/src/index.ts"
     }
-  ]
+  ],
+  "outputDirectory": "."
 }
