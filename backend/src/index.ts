@@ -18,10 +18,18 @@ app.use('/api/leads', leadRoutes);
 
 app.use(errorHandler);
 
+// Establish database connection immediately (Mongoose automatically buffers model commands)
+connectDB();
+
 const PORT = process.env.PORT || 5000;
 
-connectDB().then(() => {
+// Only start the Express listener when running locally/standalone (not inside Vercel's serverless environment)
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
   });
-});
+}
+
+// Export the app instance for Vercel's serverless builder
+export default app;
+
